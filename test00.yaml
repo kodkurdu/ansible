@@ -1,8 +1,8 @@
 - name: merhaba
   hosts: 192.168.1.6
 
-- tasks:
-  name: apache kurulumu
-  yum:
-    name: httpd
-    state: latest
+  tasks:
+    - name: apache kurulumu
+      yum:
+        name: httpd
+        state: latest
