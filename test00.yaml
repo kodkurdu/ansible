@@ -1,0 +1,8 @@
+- name: merhaba
+  host:
+
+- tasks:
+  name:
+  yum:
+    name: httpd
+    state: latest
