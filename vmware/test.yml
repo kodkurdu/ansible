@@ -1,0 +1,32 @@
+- name: cloning VM from a template
+  hosts: localhost
+  gather_facts: no
+#  vars:
+#    ansible_python_interpreter: /usr/bin/python3
+  tasks:
+    - name: create a vm from a template
+      vmware_guest:
+        hostname: '{{ lookup("env", "VMWARE_HOST") }}'
+        username: '{{ lookup("env", "VMWARE_USER") }}'
+        password: '{{ lookup("env", "VMWARE_PASSWORD") }}'
+        validate_certs: False
+        datacenter: "KonsaltDC"
+        datastore: datastore1
+        state: poweredon
+        folder: /Ansible
+        template: "rhel7_template"
+        name: "vm1"
+        cluster: "KonsaltCLS"
+        annotation:
+        networks:
+        - name: "VM Network"
+          start_connected: True
+          ip: "192.168.3.170"
+          netmask: "255.255.255.0"
+          gateway: "192.168.3.1"
+          wait_for_ip_address: True
+        customization:
+          domain: "konsalt.local"
+          dns_servers:
+            - 192.168.3.101
+      delegate_to: localhost
